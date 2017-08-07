@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace Digitally_Imported
 {
@@ -29,7 +30,7 @@ namespace Digitally_Imported
             btnStart.IsEnabled = true;
         }
 
-        private async void btnStart_Click(object sender, RoutedEventArgs e)
+        private async void btnStart_ClickAsync(object sender, RoutedEventArgs e)
         {
             btnStart.IsEnabled = false;
             progressBar.Value = 0;
@@ -39,7 +40,7 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Получение временного почтового адреса
-            statusLabel.Content = await TempMail.GetTempMail();
+            statusLabel.Content = await TempMail.GetTempMailAsync();
             if (String.IsNullOrEmpty(Settings.TmAddress))
             {
                 Status(false);
@@ -48,7 +49,7 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Получение токена для регистрации
-            statusLabel.Content = await DI.GetToken();
+            statusLabel.Content = await DI.GetTokenAsync();
             if (String.IsNullOrEmpty(Settings.DiToken))
             {
                 Status(false);
@@ -57,7 +58,7 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Регистрация нового аккаунта
-            statusLabel.Content = await DI.GoReg();
+            statusLabel.Content = await DI.GoRegAsync();
             if (statusLabel.Content.ToString().ToLower().Contains("di"))
             {
                 Status(false);
@@ -66,7 +67,7 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Получение письма с премиум-ссылкой
-            statusLabel.Content = await TempMail.GetLetter();
+            statusLabel.Content = await TempMail.GetLetterAsync();
             if (String.IsNullOrEmpty(Settings.TmLetterID))
             {
                 Status(false);
@@ -75,7 +76,7 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Получение премиум-ссылки из письма
-            statusLabel.Content = await TempMail.GetPremiumURL();
+            statusLabel.Content = await TempMail.GetPremiumURLAsync();
             if (String.IsNullOrEmpty(Settings.DiPremiumURL))
             {
                 Status(false);
@@ -83,8 +84,17 @@ namespace Digitally_Imported
             }
 
             progressBar.Value++;
+            // Получение ключа слушателя
+            statusLabel.Content = await DI.GetListenKeyAsync();
+            if (String.IsNullOrEmpty(Settings.DiListenKey))
+            {
+                Status(false);
+                return;
+            }
+
+            progressBar.Value++;
             // Активация премиума и получение JSON-строки с информацией для плейлиста
-            statusLabel.Content = await DI.GoPremium();
+            statusLabel.Content = await DI.GoPremiumAsync();
             if (String.IsNullOrEmpty(Settings.DiPlaylistJS))
             {
                 Status(false);
@@ -93,12 +103,13 @@ namespace Digitally_Imported
 
             progressBar.Value++;
             // Создание и сохранение плейлиста
-            statusLabel.Content = await Playlist.GoPlaylist();
+            statusLabel.Content = await Task<string>.Factory.StartNew(() => Playlist.GoPlaylist());
             if (statusLabel.Content.ToString().ToLower().Contains("ошибка"))
             {
                 Status(false);
                 return;
             }
+
             Status(true);
         }
     }

@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Digitally_Imported"
         mc:Ignorable="d"
-        Title="Digitally Imported" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="DIPlaylist" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnStart" Content="Сгенерировать плейлист" Grid.Row="2" Margin="5" Click="btnStart_Click" />
-        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="5,5,5,0" Maximum="7" >
+        <Button x:Name="btnStart" Content="Сгенерировать плейлист" Grid.Row="2" Margin="5" Click="btnStart_ClickAsync" IsDefault="True" />
+        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="5,5,5,0" Maximum="8" >
             <ProgressBar.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Blue"/>

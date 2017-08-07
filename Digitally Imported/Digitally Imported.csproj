@@ -59,10 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DI.cs" />
-    <Compile Include="Playlist.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="TempMail.cs" />
+    <Compile Include="Sites\DI.cs" />
+    <Compile Include="Core\Playlist.cs" />
+    <Compile Include="Core\Settings.cs" />
+    <Compile Include="Sites\TempMail.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
