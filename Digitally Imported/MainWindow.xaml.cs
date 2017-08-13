@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Threading.Tasks;
@@ -10,6 +11,34 @@ namespace Digitally_Imported
         public MainWindow()
         {
             InitializeComponent();
+
+            LaunchParameters();
+        }
+
+        /// <summary>
+        /// Запуск программы с параметрами
+        /// </summary>
+        private void LaunchParameters()
+        {
+            try
+            {
+                bool isFileNameExist = !String.IsNullOrEmpty(Path.GetFileName(Environment.GetCommandLineArgs()[1]));
+                bool isPatchExist = Directory.Exists(Path.GetDirectoryName(Environment.GetCommandLineArgs()[1]));
+
+                if (isFileNameExist && isPatchExist)
+                    Settings.PlaylistSavePatch = Environment.GetCommandLineArgs()[1];
+            }
+            catch (Exception) { }
+            finally
+            {
+                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-s"))
+                {
+                    Visibility = Visibility.Hidden;
+                    ShowInTaskbar = false;
+
+                    btnStart_ClickAsync(null, null);
+                }
+            }
         }
 
         /// <summary>
@@ -18,6 +47,9 @@ namespace Digitally_Imported
         /// <param name="status">Статус операции</param>
         private void Status(bool status)
         {
+            if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-s"))
+                Environment.Exit(0);
+
             if (status)
             {
                 statusLabel.Foreground = Brushes.Green;
