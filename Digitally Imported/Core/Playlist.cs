@@ -57,18 +57,16 @@ namespace Digitally_Imported
         /// <returns>Результат сохранения</returns>
         private static string SavePlaylist(List<string> playlist)
         {
-            string patchToFile = $@"{Directory.GetCurrentDirectory()}\Digitally Imported.aimppl";
-
             try
             {
-                File.WriteAllLines(patchToFile, playlist);
+                File.WriteAllLines(Settings.PlaylistSavePatch, playlist);
             }
             catch (Exception)
             {
                 return "Ошибка при сохранении плейлиста";
             }
 
-            return File.Exists(patchToFile) ? "Плейлист успешно сгенерирован!" : "Ошибка при сохранении плейлиста";
+            return File.Exists(Settings.PlaylistSavePatch) ? "Плейлист успешно сгенерирован!" : "Ошибка при сохранении плейлиста";
         }
     }
 }
