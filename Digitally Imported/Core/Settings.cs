@@ -20,7 +20,7 @@
         /// <summary>
         /// Актуальная ссылка на DI.fm
         /// </summary>
-        public static string DiURL { get; set; } = "http://www.di.fm/";
+        public static string DiURL { get; set; } = "https://www.di.fm/";
 
         /// <summary>
         /// Токен для регистрации
