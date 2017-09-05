@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Digitally_Imported
+namespace DIPlaylist
 {
     class DI
     {

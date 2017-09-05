@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Threading.Tasks;
 
-namespace Digitally_Imported
+namespace DIPlaylist
 {
     public partial class MainWindow : Window
     {

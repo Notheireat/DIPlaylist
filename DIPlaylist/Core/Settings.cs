@@ -1,4 +1,4 @@
-﻿namespace Digitally_Imported
+﻿namespace DIPlaylist
 {
     class Settings
     {

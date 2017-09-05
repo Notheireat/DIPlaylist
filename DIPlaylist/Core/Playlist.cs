@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace Digitally_Imported
+namespace DIPlaylist
 {
     class Playlist
     {
