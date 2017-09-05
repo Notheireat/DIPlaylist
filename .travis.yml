@@ -1,5 +1,2 @@
 language: csharp
-mono: none
-solution: "./DIPlaylist.sln"
-script:
-- xbuild ./DIPlaylist.sln"
+solution: DIPlaylist.sln
