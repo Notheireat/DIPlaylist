@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Digitally_Imported"
         mc:Ignorable="d"
-        Title="DIPlaylist" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="DIPlaylist [1.1.0]" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -1,5 +1,5 @@
 # DIPlaylist 
-[![GitHub release](https://img.shields.io/github/release/Notheireat/DIPlaylist.svg)](https://github.com/Notheireat/DIPlaylist/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/Notheireat/DIPlaylist.svg)](https://github.com/Notheireat/DIPlaylist/releases/latest) [![Travis](https://img.shields.io/travis/Notheireat/DIPlaylist.svg)](https://travis-ci.org/Notheireat/DIPlaylist)
 
 Программа создаёт плейлист интернет-радиостанции «Digitally Imported» для проигрывателя «AIMP» с активированной премиум-подпиской на 7 дней (формат вещания 320 kbit/sec MP3).
 
