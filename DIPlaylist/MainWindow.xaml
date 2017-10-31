@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DIPlaylist"
         mc:Ignorable="d"
-        Title="DIPlaylist [2.0.0]" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="DIPlaylist [2.1.0]" Height="125" Width="320" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="119*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnStart" Content="Сгенерировать плейлист" Grid.Row="2" Margin="5" Click="btnStart_ClickAsync" IsDefault="True" />
-        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="5,5,5,0" Maximum="8" >
+        <Label x:Name="statusLabel" Content="Готов приступить к работе" Grid.Row="0" Margin="5,0" HorizontalContentAlignment="Center" Foreground="Black" Grid.ColumnSpan="2" />
+        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="5,5,5,0" Maximum="8" Grid.ColumnSpan="2" >
             <ProgressBar.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Blue"/>
@@ -34,6 +38,10 @@
                 </LinearGradientBrush>
             </ProgressBar.BorderBrush>
         </ProgressBar>
-        <Label x:Name="statusLabel" Content="Готов приступить к работе" Grid.Row="0" Margin="5,0" HorizontalContentAlignment="Center" Foreground="Black" />
+        <StackPanel Grid.Row="2">
+            <RadioButton x:Name="radioAIMP3" Content="AIMP 3" Margin="5,5,1,0" Grid.Row="2" />
+            <RadioButton x:Name="radioAIMP4" Content="AIMP 4" Margin="5,0,1,0" Grid.Row="2" IsChecked="True" />
+        </StackPanel>
+        <Button x:Name="btnStart" Content="Сгенерировать плейлист" Grid.Row="2" Margin="5" Click="btnStart_ClickAsync" IsDefault="True" Grid.Column="1" />
     </Grid>
 </Window>

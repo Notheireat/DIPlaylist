@@ -48,8 +48,13 @@
         public static string DiPlaylistJS { get; set; }
 
         /// <summary>
+        /// Версия плейлиста
+        /// </summary>
+        public static int PlaylistVersion { get; set; }
+
+        /// <summary>
         /// Путь сохранения плейлиста
         /// </summary>
-        public static string PlaylistSavePatch { get; set; } = $@"{System.IO.Directory.GetCurrentDirectory()}\Digitally Imported.aimppl";
+        public static string PlaylistSavePatch { get; set; }
     }
 }

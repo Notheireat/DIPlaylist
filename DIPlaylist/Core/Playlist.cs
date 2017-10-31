@@ -27,19 +27,48 @@ namespace DIPlaylist
             try
             {
                 JToken[] channels = JObject.Parse(Settings.DiPlaylistJS)["channels"].ToArray();
+                string[] channelsArray = new string[channels.Count()];
+                List<string> channelsInfo = new List<string>();
 
-                List<string> channelsInfo = new List<string>
-                    {
-                        $"#Name:Digitally Imported ({Settings.TmAddress}:{Settings.DiPass})",
-                        "#Cursor:-1",
-                        $"#Summary:{channels.Count().ToString()} / 00:00:00:00 / 0 B",
-                        "#Flags:2047",
-                        "#Group:Radio|1"
-                    };
-
-                for (int i = 0; i < channels.Length; i++)
+                if (Settings.PlaylistVersion == 3)
                 {
-                    channelsInfo.Add($"#Track:{i + 1}|http://prem2.di.fm:80/{channels[i]["key"].ToString()}_hi?{Settings.DiListenKey}||||{channels[i]["name"].ToString()}|0|0|||0|0|0");
+                    channelsInfo.Add($"#Name:Digitally Imported ({Settings.TmAddress}:{Settings.DiPass})");
+                    channelsInfo.Add("#Flags:2047");
+                    channelsInfo.Add("#Group:Radio|1");
+
+                    for (int i = 0; i < channels.Length; i++)
+                    {
+                        channelsArray[i] = $"http://prem2.di.fm:80/{channels[i]["key"].ToString()}_hi?{Settings.DiListenKey}||||{channels[i]["name"].ToString()}|0|0|||0|0|0";
+                    }
+                    Array.Sort(channelsArray);
+
+                    for (int i = 0; i < channelsArray.Length; i++)
+                    {
+                        channelsInfo.Add($"#Track:{i + 1}|{channelsArray[i]}");
+                    }
+                }
+                else
+                {
+                    channelsInfo.Add("#-----SUMMARY-----#");
+                    channelsInfo.Add($"Name=Digitally Imported{Environment.NewLine}");
+                    channelsInfo.Add("#-----SETTINGS-----#");
+                    channelsInfo.Add("Flags=2047");
+                    channelsInfo.Add("FormatMainLine=%IF(%Artist,%Artist - %Title,%Title)");
+                    channelsInfo.Add("FormatSecondLine=%FileFormat :: %SampleRate, %BitRate, %FileSize");
+                    channelsInfo.Add($"GroupFormatLine=%FileDir{Environment.NewLine}");
+                    channelsInfo.Add("#-----CONTENT-----#");
+                    channelsInfo.Add("-Radio");
+
+                    for (int i = 0; i < channels.Length; i++)
+                    {
+                        channelsArray[i] = $"http://prem2.di.fm:80/{channels[i]["key"].ToString()}_hi?{Settings.DiListenKey}|{channels[i]["name"].ToString()}||||||||||0|0|0|0|0|0|1|{i.ToString()}||";
+                    }
+                    Array.Sort(channelsArray);
+
+                    for (int i = 0; i < channelsArray.Length; i++)
+                    {
+                        channelsInfo.Add(channelsArray[i]);
+                    }
                 }
 
                 return channelsInfo;
@@ -57,16 +86,23 @@ namespace DIPlaylist
         /// <returns>Результат сохранения</returns>
         private static string SavePlaylist(List<string> playlist)
         {
+            string savePatch = Settings.PlaylistSavePatch;
+            if (String.IsNullOrEmpty(savePatch))
+            {
+                savePatch = $@"{Directory.GetCurrentDirectory()}\Digitally Imported";
+                savePatch += Settings.PlaylistVersion == 3 ? ".aimppl" : ".aimppl4";
+            }
+
             try
             {
-                File.WriteAllLines(Settings.PlaylistSavePatch, playlist);
+                File.WriteAllLines(savePatch, playlist);
             }
             catch (Exception)
             {
                 return "Ошибка при сохранении плейлиста";
             }
 
-            return File.Exists(Settings.PlaylistSavePatch) ? "Плейлист успешно сгенерирован!" : "Ошибка при сохранении плейлиста";
+            return File.Exists(savePatch) ? "Плейлист успешно сгенерирован!" : "Ошибка при сохранении плейлиста";
         }
     }
 }

@@ -38,6 +38,18 @@ namespace DIPlaylist
 
                     btnStart_ClickAsync(null, null);
                 }
+
+                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-aimp3"))
+                {
+                    Settings.PlaylistVersion = 3;
+                    radioAIMP3.IsChecked = true;
+                }
+
+                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-aimp4"))
+                {
+                    Settings.PlaylistVersion = 4;
+                    radioAIMP4.IsChecked = true;
+                }
             }
         }
 
@@ -60,14 +72,23 @@ namespace DIPlaylist
                 statusLabel.Foreground = Brushes.Red;
             }
             btnStart.IsEnabled = true;
+            radioAIMP3.IsEnabled = true;
+            radioAIMP4.IsEnabled = true;
         }
 
         private async void btnStart_ClickAsync(object sender, RoutedEventArgs e)
         {
             btnStart.IsEnabled = false;
+            radioAIMP3.IsEnabled = false;
+            radioAIMP4.IsEnabled = false;
             progressBar.Value = 0;
             statusLabel.FontWeight = FontWeights.Normal;
             statusLabel.Foreground = Brushes.Black;
+
+            if (Settings.PlaylistVersion == 0)
+            {
+                Settings.PlaylistVersion = radioAIMP3.IsChecked.Value ? 3 : 4;
+            }
             statusLabel.Content = "Создание временного почтового адреса...";
 
             progressBar.Value++;
