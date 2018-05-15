@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:DIPlaylist"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="DIPlaylist [2.1.1]"
+        Title="DIPlaylist"
         Width="320"
         Height="125"
         ResizeMode="CanMinimize"
@@ -29,6 +29,7 @@
                Foreground="Black" />
         <ProgressBar x:Name="progressBar"
                      Grid.Row="1"
+                     Grid.Column="0"
                      Grid.ColumnSpan="2"
                      Margin="5,5,5,0"
                      Maximum="8">
@@ -52,13 +53,11 @@
                 </LinearGradientBrush>
             </ProgressBar.BorderBrush>
         </ProgressBar>
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="2" Grid.Column="0">
             <RadioButton x:Name="radioAIMP3"
-                         Grid.Row="2"
                          Margin="5,5,1,0"
                          Content="AIMP 3" />
             <RadioButton x:Name="radioAIMP4"
-                         Grid.Row="2"
                          Margin="5,0,1,0"
                          Content="AIMP 4"
                          IsChecked="True" />

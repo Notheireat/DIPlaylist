@@ -95,7 +95,7 @@ namespace DIPlaylist
         /// </summary>
         public static async Task<string> GetPremiumURLAsync()
         {
-            string responseBody = await GetContentAsync($"{Settings.TmURL}view/{Settings.TmLetterID}");
+            string responseBody = await GetContentAsync($"{Settings.TmURL}view/{Settings.TmLetterID}/");
             if (String.IsNullOrEmpty(responseBody))
                 return $"Проблема с доступом к {Settings.TmURL}";
 

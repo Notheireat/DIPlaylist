@@ -5,7 +5,7 @@
         /// <summary>
         /// Актуальная ссылка на Temp-mail
         /// </summary>
-        public static string TmURL { get; set; } = "https://temp-mail.org/";
+        public static string TmURL { get; set; } = "https://temp-mail.org/en/";
 
         /// <summary>
         /// Временный почтовый адрес

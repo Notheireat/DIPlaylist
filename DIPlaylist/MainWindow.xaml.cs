@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Threading.Tasks;
@@ -28,10 +29,15 @@ namespace DIPlaylist
                 if (isFileNameExist && isPatchExist)
                     Settings.PlaylistSavePatch = Environment.GetCommandLineArgs()[1];
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                // ignored
+            }
             finally
             {
-                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-s"))
+                Title = $"DIPlaylist [{Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}]";
+
+                if (Array.Exists(Environment.GetCommandLineArgs(), a => a == "-s"))
                 {
                     Visibility = Visibility.Hidden;
                     ShowInTaskbar = false;
@@ -39,13 +45,13 @@ namespace DIPlaylist
                     btnStart_ClickAsync(null, null);
                 }
 
-                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-aimp3"))
+                if (Array.Exists(Environment.GetCommandLineArgs(), a => a == "-aimp3"))
                 {
                     Settings.PlaylistVersion = 3;
                     radioAIMP3.IsChecked = true;
                 }
 
-                if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-aimp4"))
+                if (Array.Exists(Environment.GetCommandLineArgs(), a => a == "-aimp4"))
                 {
                     Settings.PlaylistVersion = 4;
                     radioAIMP4.IsChecked = true;
@@ -59,7 +65,7 @@ namespace DIPlaylist
         /// <param name="status">Статус операции</param>
         private void Status(bool status)
         {
-            if (Array.Exists(Environment.GetCommandLineArgs(), A => A == "-s"))
+            if (Array.Exists(Environment.GetCommandLineArgs(), a => a == "-s"))
                 Environment.Exit(0);
 
             if (status)
@@ -87,7 +93,7 @@ namespace DIPlaylist
 
             if (Settings.PlaylistVersion == 0)
             {
-                Settings.PlaylistVersion = radioAIMP3.IsChecked.Value ? 3 : 4;
+                Settings.PlaylistVersion = radioAIMP3.IsChecked != null && radioAIMP3.IsChecked.Value ? 3 : 4;
             }
             statusLabel.Content = "Создание временного почтового адреса...";
 
@@ -156,7 +162,7 @@ namespace DIPlaylist
 
             progressBar.Value++;
             // Создание и сохранение плейлиста
-            statusLabel.Content = await Task<string>.Factory.StartNew(() => Playlist.GoPlaylist());
+            statusLabel.Content = await Task<string>.Factory.StartNew(Playlist.GoPlaylist);
             if (statusLabel.Content.ToString().ToLower().Contains("ошибка"))
             {
                 Status(false);
